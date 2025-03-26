@@ -1,16 +1,49 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 7f;
+    private Rigidbody2D body;
+    private Animator anim;
+    private bool isGrounded;
+
+    private void Awake()
     {
-        
+        body = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        float horizontalInput = Input.GetAxis("Horizontal");
+        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+
+        if (horizontalInput > 0.01f)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (horizontalInput < -0.01f)
+            transform.localScale = new Vector3(-1, 1, 1);
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            Jump();
+
+        anim.SetBool("isRunning", horizontalInput != 0);
+        anim.SetBool("isGrounded", isGrounded);
+    }
+
+    private void Jump()
+    {
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+        isGrounded = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Grounded");
+            isGrounded = true;
+        }
     }
 }
