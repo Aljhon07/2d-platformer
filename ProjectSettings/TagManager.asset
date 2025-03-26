@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - End
+  - Fireball
+  - PlayerFeet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,8 +17,8 @@ TagManager:
   - Water
   - UI
   - Ground
+  - Walls
   - Player
-  - 
   - 
   - 
   - 

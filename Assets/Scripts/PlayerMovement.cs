@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 7f;
+    private float horizontalInput;
     private Rigidbody2D body;
     private Animator anim;
     private bool isGrounded;
@@ -17,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = Input.GetAxis("Horizontal");
         body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
 
         if (horizontalInput > 0.01f)
@@ -26,10 +27,12 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
             Jump();
+        }
 
         anim.SetBool("isRunning", horizontalInput != 0);
-        anim.SetBool("isGrounded", isGrounded);
+
     }
 
     private void Jump()
@@ -42,8 +45,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("Grounded");
             isGrounded = true;
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("You Died");
+        }
+    }
+    public bool canAttack()
+    {
+        return horizontalInput == 0 && isGrounded;
     }
 }
