@@ -9,6 +9,7 @@ TagManager:
   - Fireball
   - PlayerFeet
   - Enemy
+  - Crystal
   layers:
   - Default
   - TransparentFX
@@ -51,6 +52,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 380566243
+    locked: 0
+  - name: Player
+    uniqueID: 1821683847
     locked: 0
   m_RenderingLayers:
   - Default

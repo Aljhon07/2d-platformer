@@ -47,10 +47,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("You Died");
-        }
+
     }
     public bool canAttack()
     {

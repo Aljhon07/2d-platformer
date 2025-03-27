@@ -9,6 +9,13 @@ public class PlayerFeet : MonoBehaviour
         {
             Debug.Log("Enemy hit! Destroying...");
             Destroy(collision.gameObject);
+
+            Rigidbody2D rb = GetComponentInParent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 5f);
+            }
+
         }
     }
 }
